@@ -2,7 +2,10 @@
 
 S3method(docker_cmd,droplet)
 S3method(docker_cmd,localhost)
+S3method(docker_inspect,droplet)
+S3method(docker_inspect,localhost)
 export(docker_cmd)
+export(docker_inspect)
 export(docker_pull)
 export(docker_run)
 export(localhost)

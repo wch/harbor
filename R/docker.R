@@ -1,11 +1,22 @@
 #' Run a docker command on a host.
 #'
+#'
+#' @param host A host object.
+#' @param cmd A docker command, such as "run" or "ps"
+#' @param args Arguments to pass to the docker command
+#' @param docker_opts Options to docker. These are things that come before the
+#'   docker command, when run on the command line.
+#' @param capture_text If \code{FALSE} (the default), return the host object.
+#'   This is useful for chaining functions. If \code{TRUE}, capture the text
+#'   output from both stdout and stderr, and return that. Note that \code{TRUE}
+#'   may not be available on all types of hosts.
 #' @examples
 #' \dontrun{
 #' docker_cmd(localhost(), "ps", "-a")
 #' }
 #' @export
-docker_cmd <- function(host, cmd = NULL, args = NULL, docker_opts = NULL, ...) {
+docker_cmd <- function(host, cmd = NULL, args = NULL, docker_opts = NULL,
+                       capture_text = FALSE, ...) {
   UseMethod("docker_cmd")
 }
 
@@ -26,6 +37,7 @@ docker_pull <- function(host = localhost(), image, ...) {
 
 #' Run a command in a new container on a host.
 #'
+#' @return A \code{container} object.
 #' @examples
 #' \dontrun{
 #' docker_run(localhost(), "debian:testing", "echo foo")
@@ -40,14 +52,40 @@ docker_pull <- function(host = localhost(), image, ...) {
 #' }
 #' @export
 docker_run <- function(host = localhost(), image = NULL, cmd = NULL,
-                       name = NULL, rm = FALSE,...) {
+                       name = NULL, rm = FALSE, detach = FALSE, ...) {
 
   if (is.null(image)) stop("Must specify an image.")
 
-  docker_opts <- c(
+  # Generate names here, instead of having docker do it automatically, so that
+  # we can refer to this container later.
+  if (is.null(name)) name <- random_name(prefix = "harbor")
+
+  args <- c(
+    sprintf('--name="%s"', name),
     if (rm) "--rm",
-    if (!is.null(name)) sprintf('--name="%s"', name)
+    if (detach) "-d",
+    image,
+    cmd
   )
 
-  docker_cmd(host, "run", args = c(image, cmd), docker_opts = docker_opts, ...)
+  docker_cmd(host, "run", args = args, ...)
+
+  container(host, docker_inspect(host, name)[[1]])
+}
+
+
+#' Inspect one or more containers, given name(s) or ID(s).
+#'
+#' @return A list of lists, where each sublist represents one container. This is
+#'   the output of `docker inspect` translated directly from raw JSON to an R
+#'   object.
+#'
+#' @examples
+#' \dontrun{
+#' docker_run(localhost(), "debian:testing", "echo foo", name = "harbor-test")
+#' docker_inspect(localhost(), "harbor-test")
+#' }
+#' @export
+docker_inspect <- function(host = localhost(), names = NULL, ...) {
+  UseMethod("docker_inspect")
 }

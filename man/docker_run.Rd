@@ -4,7 +4,10 @@
 \title{Run a command in a new container on a host.}
 \usage{
 docker_run(host = localhost(), image = NULL, cmd = NULL, name = NULL,
-  rm = FALSE, ...)
+  rm = FALSE, detach = FALSE, ...)
+}
+\value{
+A \code{container} object.
 }
 \description{
 Run a command in a new container on a host.
