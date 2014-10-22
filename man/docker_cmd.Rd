@@ -3,12 +3,14 @@
 \alias{docker_cmd}
 \title{Run a docker command on a host.}
 \usage{
-docker_cmd(host, cmd = NULL, args = NULL, docker_args = NULL, ...)
+docker_cmd(host, cmd = NULL, args = NULL, docker_opts = NULL, ...)
 }
 \description{
 Run a docker command on a host.
 }
 \examples{
+\dontrun{
 docker_cmd(localhost(), "ps", "-a")
+}
 }
 
