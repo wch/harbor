@@ -5,6 +5,12 @@ localhost <- function() {
 }
 
 #' @export
+print.localhost <- function(x, ...) {
+  cat("<localhost>")
+}
+
+
+#' @export
 docker_cmd.localhost <- function(host, cmd = NULL, args = NULL,
                                  docker_opts = NULL, capture_text = FALSE, ...) {
   docker <- Sys.which("docker")

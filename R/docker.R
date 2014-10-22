@@ -70,7 +70,7 @@ docker_run <- function(host = localhost(), image = NULL, cmd = NULL,
 
   docker_cmd(host, "run", args = args, ...)
 
-  container(host, docker_inspect(host, name)[[1]])
+  container(host, docker_inspect(host, name, ...)[[1]])
 }
 
 

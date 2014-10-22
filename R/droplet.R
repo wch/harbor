@@ -21,7 +21,8 @@ docker_inspect.droplet <- function(host, names = NULL, ...) {
       "docker inspect %s > %s",
       paste(names, collapse = " "),
       temp_remote
-    ), ...
+    ),
+    ...
   )
   analogsea::droplet_download(host, temp_remote, temp_local, ...)
 
