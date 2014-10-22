@@ -3,6 +3,9 @@ Title: Control docker containers from R
 Version: 0.0.1
 Authors@R: "Winston Chang <winston@stdout.org> [aut, cre]"
 Description: Control docker containers from R
-Depends: R (>= 3.0)
+Depends:
+    R (>= 3.0)
 License: GPL-2
 LazyData: true
+Suggests:
+    analogsea
