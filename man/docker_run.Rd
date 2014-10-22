@@ -6,8 +6,25 @@
 docker_run(host = localhost(), image = NULL, cmd = NULL, name = NULL,
   rm = FALSE, detach = FALSE, ...)
 }
+\arguments{
+\item{host}{An object representing the host where the container will be run.}
+
+\item{image}{The name or ID of a docker image.}
+
+\item{cmd}{A command to run in the container.}
+
+\item{name}{A name for the container. If none is provided, a random name will
+be used.}
+
+\item{rm}{If \code{TRUE}, remove the container after it finishes. This is
+incompatible with \code{detach=TRUE}.}
+
+\item{detach}{If \code{TRUE}, run the container in the background.}
+}
 \value{
-A \code{container} object.
+A \code{container} object. When \code{rm=TRUE}, this function returns
+  \code{NULL} instead of a container object, because the container no longer
+  exists.
 }
 \description{
 Run a command in a new container on a host.
