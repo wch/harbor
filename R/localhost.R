@@ -6,7 +6,7 @@ localhost <- function() {
 
 #' @export
 docker_cmd.localhost <- function(host, cmd = NULL, args = NULL,
-                                  docker_args = NULL, ...) {
-  system2("docker", args = c(docker_args, cmd, args))
+                                  docker_opts = NULL, ...) {
+  system2("docker", args = c(docker_opts, cmd, args))
   host
 }
