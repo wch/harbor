@@ -17,7 +17,7 @@ docker_cmd.droplet <- function(host, cmd = NULL, args = NULL,
     return(text)
 
   } else {
-    return(analogsea::droplet_ssh(host, ..., cmd_string))
+    return(analogsea::droplet_ssh(host, user = "analogsea", ..., cmd_string))
   }
 
 }
