@@ -86,9 +86,8 @@ docker_run <- function(host = localhost(), image = NULL, cmd = NULL,
   if (rm) return(invisible())
 
   info <- docker_inspect(host, name, ...)[[1]]
-  invisible(container(host, info))
+  invisible(as.container(info, host))
 }
-
 
 #' Inspect one or more containers, given name(s) or ID(s).
 #'

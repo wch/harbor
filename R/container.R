@@ -1,22 +1,38 @@
-# Create an object representing a container on a host
-# info should be the output of docker_inspect()
-container <- function(host, info) {
-  if (is.null(info$Name) || is.null(info$Id))
-    stop("`info` must be information about a single container.")
+#' Coerce an object into a container object.
+#'
+#' A container object represents a Docker container on a host.
+#' @export
+as.container <- function(x, host = localhost()) UseMethod("as.container")
+
+#' @export
+as.container.character <- function(x, host = localhost()) {
+  info <- docker_inspect(host, x)[[1]]
+  as.container(info, host)
+}
+
+#' @export
+as.container.list <- function(x, host = localhost()) {
+  # x should be the output of docker_inspect()
+  if (is.null(x$Name) || is.null(x$Id))
+    stop("`x` must be information about a single container.")
 
   structure(
     list(
       host = host,
-      id = substr(info$Id, 1, 12),
-      name = sub("^/", "", info$Name),
-      image = info$Config$Image,
-      cmd = info$Config$Cmd,
-      info = info
+      id = substr(x$Id, 1, 12),
+      name = sub("^/", "", x$Name),
+      image = x$Config$Image,
+      cmd = x$Config$Cmd,
+      info = x
     ),
     class = "container"
   )
 }
 
+#' @export
+as.container.container <- function(x, host = localhost()) {
+  x
+}
 
 #' @export
 print.container <- function(x, ...) {
