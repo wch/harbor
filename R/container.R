@@ -49,3 +49,46 @@ print.container <- function(x, ...) {
     )
   )
 }
+
+#' Update the information about a container.
+#'
+#' This queries docker (on the host) for information about the container, and
+#' saves the returned information into a container object, which is returned.
+#' This does not use reference semantics, so if you want to store the updated
+#' information, you need to save the result.
+#'
+#' @examples
+#' \dontrun{
+#' con <- container_update_info(con)
+#' }
+#' @export
+container_update_info <- function(container) {
+  container$info <- docker_inspect(container$host, container$name)[[1]]
+  container
+}
+
+#' Report whether a container is currently running.
+#'
+#' @examples
+#' \dontrun{
+#' container_running(con)
+#' }
+#' @export
+container_running <- function(container) {
+  container <- container_update_info(container)
+  container$info$State$Running
+}
+
+
+#' Delete a container.
+#'
+#' @param force Force removal of a running container.
+#' @examples
+#' \dontrun{
+#' container_rm(con)
+#' }
+#' @export
+container_rm <- function(container, force = FALSE) {
+  args <- c(if (force) "-f", container$id)
+  docker_cmd(container$host, "rm", args)
+}
