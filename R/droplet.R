@@ -17,6 +17,7 @@ docker_inspect.droplet <- function(host, names = NULL, ...) {
 
   analogsea::droplet_ssh(
     host,
+    user = "analogsea",
     sprintf(
       "docker inspect %s > %s",
       paste(names, collapse = " "),
@@ -24,7 +25,8 @@ docker_inspect.droplet <- function(host, names = NULL, ...) {
     ),
     ...
   )
-  analogsea::droplet_download(host, temp_remote, temp_local, ...)
+  analogsea::droplet_download(host, user = "analogsea", temp_remote,
+                              temp_local, ...)
 
   text <- readLines(temp_local, warn = FALSE)
   jsonlite::fromJSON(text, simplifyDataFrame = FALSE, simplifyMatrix = FALSE)
