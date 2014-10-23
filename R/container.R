@@ -92,3 +92,18 @@ container_rm <- function(container, force = FALSE) {
   args <- c(if (force) "-f", container$id)
   docker_cmd(container$host, "rm", args)
 }
+
+
+#' Retrieve logs for a container.
+#'
+#' @param follow Follow log output as it is happening.
+#' @param timestamp Show timestamps.
+#' @examples
+#' \dontrun{
+#' container_rm(con)
+#' }
+#' @export
+container_logs <- function(container, timestamps = FALSE, follow = FALSE) {
+  args <- c(if (timestamps) "-t", if (follow) "-f", container$id)
+  docker_cmd(container$host, "logs", args)
+}
