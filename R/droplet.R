@@ -1,33 +1,23 @@
 #' @export
 docker_cmd.droplet <- function(host, cmd = NULL, args = NULL,
-                               docker_opts = NULL, ...) {
+                               docker_opts = NULL, capture_text = FALSE, ...) {
   cmd_string <- paste(c("docker", cmd, docker_opts, args), collapse = " ")
-  droplet_ssh(host, ..., cmd_string)
-}
 
+  if (capture_text) {
+    # Assume that the remote host uses /tmp as the temp dir
+    temp_remote <- tempfile("docker_cmd", tmpdir = "/tmp")
+    temp_local <- tempfile("docker_cmd")
+    on.exit(unlink(temp_local))
 
-#' @export
-docker_inspect.droplet <- function(host, names = NULL, ...) {
-  if (is.null(names)) stop("Must have at least container name/id to inspect.")
+    analogsea::droplet_ssh(host, user = "analogsea",
+                           paste(cmd_string, ">", temp_remote), ...)
+    analogsea::droplet_download(host, user = "analogsea", temp_remote,
+                                temp_local, ...)
+    text <- readLines(temp_local, warn = FALSE)
+    return(text)
 
-  # Assume that the remote host uses /tmp as the temp dir
-  temp_remote <- tempfile("docker_ps", tmpdir = "/tmp")
-  temp_local <- tempfile("docker_ps")
-  on.exit(unlink(temp_local))
+  } else {
+    return(analogsea::droplet_ssh(host, ..., cmd_string))
+  }
 
-  analogsea::droplet_ssh(
-    host,
-    user = "analogsea",
-    sprintf(
-      "docker inspect %s > %s",
-      paste(names, collapse = " "),
-      temp_remote
-    ),
-    ...
-  )
-  analogsea::droplet_download(host, user = "analogsea", temp_remote,
-                              temp_local, ...)
-
-  text <- readLines(temp_local, warn = FALSE)
-  jsonlite::fromJSON(text, simplifyDataFrame = FALSE, simplifyMatrix = FALSE)
 }

@@ -26,12 +26,3 @@ docker_cmd.localhost <- function(host, cmd = NULL, args = NULL,
 
   invisible(host)
 }
-
-#' @export
-docker_inspect.localhost <- function(host, names = NULL, ...) {
-  if (is.null(names)) stop("Must have at least container name/id to inspect.")
-
-  text <- docker_cmd(host, "inspect", args = names, capture_text = TRUE, ...)
-
-  jsonlite::fromJSON(text, simplifyDataFrame = FALSE, simplifyMatrix = FALSE)
-}
