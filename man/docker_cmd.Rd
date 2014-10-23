@@ -26,7 +26,7 @@ Run a docker command on a host.
 }
 \examples{
 \dontrun{
-docker_cmd(localhost(), "ps", "-a")
+docker_cmd(localhost, "ps", "-a")
 }
 }
 

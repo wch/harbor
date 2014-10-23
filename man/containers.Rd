@@ -3,7 +3,7 @@
 \alias{containers}
 \title{Get list of all containers on a host.}
 \usage{
-containers(host = localhost(), ...)
+containers(host = localhost, ...)
 }
 \description{
 Get list of all containers on a host.

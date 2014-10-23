@@ -12,7 +12,7 @@
 #'   may not be available on all types of hosts.
 #' @examples
 #' \dontrun{
-#' docker_cmd(localhost(), "ps", "-a")
+#' docker_cmd(localhost, "ps", "-a")
 #' }
 #' @export
 docker_cmd <- function(host, cmd = NULL, args = NULL, docker_opts = NULL,
@@ -25,11 +25,11 @@ docker_cmd <- function(host, cmd = NULL, args = NULL, docker_opts = NULL,
 #'
 #' @examples
 #' \dontrun{
-#' docker_pull(localhost(), "debian:testing")
+#' docker_pull(localhost, "debian:testing")
 #' }
 #' @return The \code{host} object.
 #' @export
-docker_pull <- function(host = localhost(), image, ...) {
+docker_pull <- function(host = localhost, image, ...) {
   if (is.null(image)) stop("Must specify an image.")
   docker_cmd(host, "pull", image, ...)
 }
@@ -52,18 +52,18 @@ docker_pull <- function(host = localhost(), image, ...) {
 #'
 #' @examples
 #' \dontrun{
-#' docker_run(localhost(), "debian:testing", "echo foo")
+#' docker_run(localhost, "debian:testing", "echo foo")
 #' #> foo
 #'
 #' # Arguments will be concatenated
-#' docker_run(localhost(), "debian:testing", c("echo foo", "bar"))
+#' docker_run(localhost, "debian:testing", c("echo foo", "bar"))
 #' #> foo bar
 #'
-#' docker_run(localhost(), "rocker/r-base", c("Rscript", "-e", "1+1"))
+#' docker_run(localhost, "rocker/r-base", c("Rscript", "-e", "1+1"))
 #' #> [1] 2
 #' }
 #' @export
-docker_run <- function(host = localhost(), image = NULL, cmd = NULL,
+docker_run <- function(host = localhost, image = NULL, cmd = NULL,
                        name = NULL, rm = FALSE, detach = FALSE,
                        docker_opts = NULL, ...) {
 
@@ -98,11 +98,11 @@ docker_run <- function(host = localhost(), image = NULL, cmd = NULL,
 #'
 #' @examples
 #' \dontrun{
-#' docker_run(localhost(), "debian:testing", "echo foo", name = "harbor-test")
-#' docker_inspect(localhost(), "harbor-test")
+#' docker_run(localhost, "debian:testing", "echo foo", name = "harbor-test")
+#' docker_inspect(localhost, "harbor-test")
 #' }
 #' @export
-docker_inspect <- function(host = localhost(), names = NULL, ...) {
+docker_inspect <- function(host = localhost, names = NULL, ...) {
   if (is.null(names))
     stop("Must have at one least container name/id to inspect.")
 

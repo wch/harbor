@@ -1,8 +1,6 @@
-#' Return an object representing the current computer that R is running on.
+#' An object representing the current computer that R is running on.
 #' @export
-localhost <- function() {
-  structure(list(), class = c("localhost", "host"))
-}
+localhost <- structure(list(), class = c("localhost", "host"))
 
 #' @export
 print.localhost <- function(x, ...) {

@@ -3,7 +3,7 @@
 \alias{docker_inspect}
 \title{Inspect one or more containers, given name(s) or ID(s).}
 \usage{
-docker_inspect(host = localhost(), names = NULL, ...)
+docker_inspect(host = localhost, names = NULL, ...)
 }
 \value{
 A list of lists, where each sublist represents one container. This is
@@ -15,8 +15,8 @@ Inspect one or more containers, given name(s) or ID(s).
 }
 \examples{
 \dontrun{
-docker_run(localhost(), "debian:testing", "echo foo", name = "harbor-test")
-docker_inspect(localhost(), "harbor-test")
+docker_run(localhost, "debian:testing", "echo foo", name = "harbor-test")
+docker_inspect(localhost, "harbor-test")
 }
 }
 

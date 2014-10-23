@@ -6,7 +6,7 @@ This is an R package for controlling docker containers on local and remote hosts
 
 It presently works with:
 
-* The local computer that R is running on (`localhost()`)
+* The local computer that R is running on (`localhost`)
 * Remote virtual machines running on Digital Ocean, with the [analogsea](https://github.com/sckott/analogsea) package.
 
 
@@ -22,17 +22,17 @@ devtools::install_github("sckott/analogsea")
 
 ## Usage
 
-If you have docker or boot2docker installed on your local computer, you can control it with the `localhost()` object.
+If you have docker or boot2docker installed on your local computer, you can control it with the `localhost` object.
 
 ```R
 library(harbor)
 
 # Run a command and exit
-docker_run(localhost(), "ubuntu", "echo foo")
+docker_run(localhost, "ubuntu", "echo foo")
 #> foo
 
 # Running it returns a container object, which we can print
-con <- docker_run(localhost(), "ubuntu", "echo foo")
+con <- docker_run(localhost, "ubuntu", "echo foo")
 con
 #> <container>
 #>   ID:       c981531604a7 
@@ -42,15 +42,15 @@ con
 #>   Host:     <localhost>
 
 # Automatically remove the container when finished
-docker_run(localhost(), "ubuntu", "echo foo", rm = TRUE)
+docker_run(localhost, "ubuntu", "echo foo", rm = TRUE)
 
 # Run a command with Rscript, using the rocker/r-base image.
 # Arguments can be in a char vector.
-docker_run(localhost(), "rocker/r-base", c("Rscript", "-e", '"sum(1:10)"'), rm = TRUE)
+docker_run(localhost, "rocker/r-base", c("Rscript", "-e", '"sum(1:10)"'), rm = TRUE)
 #> [1] 55
 ```
 
-The same commands can be used with docker images on a remote host, using the analogsea package. The only difference in the interface is that, instead of `localhost()`, you must pass in the object representing the remote host.
+The same commands can be used with docker images on a remote host, using the analogsea package. The only difference in the interface is that, instead of `localhost`, you must pass in the object representing the remote host.
 
 Note: you may need to configure ssh host keys on Digital Ocean for the following to work.
 

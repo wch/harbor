@@ -2,16 +2,16 @@
 #'
 #' A container object represents a Docker container on a host.
 #' @export
-as.container <- function(x, host = localhost()) UseMethod("as.container")
+as.container <- function(x, host = localhost) UseMethod("as.container")
 
 #' @export
-as.container.character <- function(x, host = localhost()) {
+as.container.character <- function(x, host = localhost) {
   info <- docker_inspect(host, x)[[1]]
   as.container(info, host)
 }
 
 #' @export
-as.container.list <- function(x, host = localhost()) {
+as.container.list <- function(x, host = localhost) {
   # x should be the output of docker_inspect()
   if (is.null(x$Name) || is.null(x$Id))
     stop("`x` must be information about a single container.")
@@ -30,7 +30,7 @@ as.container.list <- function(x, host = localhost()) {
 }
 
 #' @export
-as.container.container <- function(x, host = localhost()) {
+as.container.container <- function(x, host = localhost) {
   x
 }
 

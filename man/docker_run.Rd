@@ -3,7 +3,7 @@
 \alias{docker_run}
 \title{Run a command in a new container on a host.}
 \usage{
-docker_run(host = localhost(), image = NULL, cmd = NULL, name = NULL,
+docker_run(host = localhost, image = NULL, cmd = NULL, name = NULL,
   rm = FALSE, detach = FALSE, docker_opts = NULL, ...)
 }
 \arguments{
@@ -31,14 +31,14 @@ Run a command in a new container on a host.
 }
 \examples{
 \dontrun{
-docker_run(localhost(), "debian:testing", "echo foo")
+docker_run(localhost, "debian:testing", "echo foo")
 #> foo
 
 # Arguments will be concatenated
-docker_run(localhost(), "debian:testing", c("echo foo", "bar"))
+docker_run(localhost, "debian:testing", c("echo foo", "bar"))
 #> foo bar
 
-docker_run(localhost(), "rocker/r-base", c("Rscript", "-e", "1+1"))
+docker_run(localhost, "rocker/r-base", c("Rscript", "-e", "1+1"))
 #> [1] 2
 }
 }

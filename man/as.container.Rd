@@ -3,7 +3,7 @@
 \alias{as.container}
 \title{Coerce an object into a container object.}
 \usage{
-as.container(x, host = localhost())
+as.container(x, host = localhost)
 }
 \description{
 A container object represents a Docker container on a host.

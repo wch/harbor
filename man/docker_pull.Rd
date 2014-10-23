@@ -3,7 +3,7 @@
 \alias{docker_pull}
 \title{Pull a docker image onto a host.}
 \usage{
-docker_pull(host = localhost(), image, ...)
+docker_pull(host = localhost, image, ...)
 }
 \value{
 The \code{host} object.
@@ -13,7 +13,7 @@ Pull a docker image onto a host.
 }
 \examples{
 \dontrun{
-docker_pull(localhost(), "debian:testing")
+docker_pull(localhost, "debian:testing")
 }
 }
 

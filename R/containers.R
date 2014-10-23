@@ -1,6 +1,6 @@
 #' Get list of all containers on a host.
 #' @export
-containers <- function(host = localhost(), ...) {
+containers <- function(host = localhost, ...) {
   ids <- docker_cmd(host, "ps", "-qa", capture_text = TRUE, ...)
 
   cons <- lapply(ids, as.container, host)
