@@ -1,6 +1,9 @@
-# Create an object representing a container
-# Info should be the output of docker_inspect()
+# Create an object representing a container on a host
+# info should be the output of docker_inspect()
 container <- function(host, info) {
+  if (is.null(info$Name) || is.null(info$Id))
+    stop("`info` must be information about a single container.")
+
   structure(
     list(
       host = host,
