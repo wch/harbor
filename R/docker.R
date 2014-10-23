@@ -89,6 +89,7 @@ docker_run <- function(host = localhost(), image = NULL, cmd = NULL,
   invisible(as.container(info, host))
 }
 
+
 #' Inspect one or more containers, given name(s) or ID(s).
 #'
 #' @return A list of lists, where each sublist represents one container. This is
