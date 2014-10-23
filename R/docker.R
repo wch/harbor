@@ -64,7 +64,8 @@ docker_pull <- function(host = localhost(), image, ...) {
 #' }
 #' @export
 docker_run <- function(host = localhost(), image = NULL, cmd = NULL,
-                       name = NULL, rm = FALSE, detach = FALSE, ...) {
+                       name = NULL, rm = FALSE, detach = FALSE,
+                       docker_opts = NULL, ...) {
 
   if (is.null(image)) stop("Must specify an image.")
 
@@ -76,6 +77,7 @@ docker_run <- function(host = localhost(), image = NULL, cmd = NULL,
     sprintf('--name="%s"', name),
     if (rm) "--rm",
     if (detach) "-d",
+    docker_opts,
     image,
     cmd
   )

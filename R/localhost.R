@@ -19,7 +19,7 @@ docker_cmd.localhost <- function(host, cmd = NULL, args = NULL,
   # If FALSE, send output to console
   if (textopt == FALSE) textopt <- ""
 
-  res <- system2(docker, args = c(docker_opts, cmd, args), stdout = textopt,
+  res <- system2(docker, args = c(cmd, docker_opts, args), stdout = textopt,
                  stderr = textopt)
 
   if (capture_text) return(res)
