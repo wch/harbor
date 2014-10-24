@@ -1,9 +1,10 @@
 # If we're on Mac and Windows, we're using boot2docker, and we need to run the
 # equivalent of `$(boot2docker shellinit)`.
 boot2docker_shellinit <- function() {
-  if (!(Sys.info()["sysname"] %in% c("Darwin", "Windows"))) {
+  if (!(Sys.info()["sysname"] %in% c("Darwin", "Windows")))
     return()
-  }
+  if (Sys.which("boot2docker") == "")
+    return()
 
   # Run shellinit and capture the output, which are comands setting env vars
   # for sh. We need read them in and set them from R.
