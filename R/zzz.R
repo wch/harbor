@@ -1,5 +1,8 @@
 .onLoad <- function(libname, pkgname) {
   if (Sys.info()["sysname"] %in% c("Darwin", "Windows")) {
-    boot2docker_shellinit()
+    machine <- getOption("harbor.autoconnect", FALSE)
+    if (!identical(machine, FALSE)) {
+      docker_machine_init(if (isTRUE(machine)) NULL else machine)
+    }
   }
 }
