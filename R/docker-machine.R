@@ -89,6 +89,25 @@ docker_machine_init_which <- function(machine) {
   }
 }
 
+
+##' Return the IP address for the "local" machine.  On Linux this is
+##' just the localhost, but on Mac and Windows system it will be the
+##' IP of the docker-machine VM.
+##'
+##' @title IP address of docker server
+##' @param machine Name of the machine
+##' @export
+localhost_ip <- function(machine=NULL) {
+  if (Sys.info()["sysname"] %in% c("Darwin", "Windows")) {
+    machine <- docker_machine_init(machine)
+    ip <- callr_call_system(callr_Sys_which("docker-machine"),
+                            c("ip", Sys.getenv("DOCKER_MACHINE_NAME")))
+    ip
+  } else {
+    "127.0.0.1"
+  }
+}
+
 ## Ported from callr for now (sorry) - I can refactor this later or
 ## depend on callr later.
 callr_Sys_which <- function(name) {
