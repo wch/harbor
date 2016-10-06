@@ -96,7 +96,7 @@ droplet_delete(dhost)
 library(googleComputeEngineR)
 library(harbor)
 
-# Create a virtual machine on Digital Ocean
+# Create a virtual machine on Google Compute Engine
 job <-   gce_vm_create("demo", 
                        image_project = "google-containers",
                        image_family = "gci-stable",
