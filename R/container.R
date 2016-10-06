@@ -1,5 +1,8 @@
 #' Coerce an object into a container object.
 #'
+#' @param x An object to coerce
+#' @param host A docker host
+#'
 #' A container object represents a Docker container on a host.
 #' @export
 as.container <- function(x, host = localhost) UseMethod("as.container")
@@ -35,6 +38,7 @@ as.container.container <- function(x, host = localhost) {
 }
 
 #' @export
+#' @importFrom utils capture.output
 print.container <- function(x, ...) {
   cat("<container>")
   cat(
@@ -44,7 +48,7 @@ print.container <- function(x, ...) {
     "\n  Command: ", x$cmd,
     "\n  Host:  ",
     indent(
-      paste(capture.output(print(x$host)), collapse = "\n"),
+      paste(utils::capture.output(print(x$host)), collapse = "\n"),
       indent = 2
     )
   )
@@ -57,6 +61,8 @@ print.container <- function(x, ...) {
 #' This does not use reference semantics, so if you want to store the updated
 #' information, you need to save the result.
 #'
+#' @param container A container object
+#'
 #' @examples
 #' \dontrun{
 #' con <- container_update_info(con)
@@ -68,6 +74,8 @@ container_update_info <- function(container) {
 }
 
 #' Report whether a container is currently running.
+#'
+#' @inheritParams container_update_info
 #'
 #' @examples
 #' \dontrun{
@@ -82,6 +90,7 @@ container_running <- function(container) {
 
 #' Delete a container.
 #'
+#' @inheritParams container_update_info
 #' @param force Force removal of a running container.
 #' @examples
 #' \dontrun{
@@ -96,8 +105,9 @@ container_rm <- function(container, force = FALSE) {
 
 #' Retrieve logs for a container.
 #'
+#' @inheritParams container_update_info
 #' @param follow Follow log output as it is happening.
-#' @param timestamp Show timestamps.
+#' @param timestamps Show timestamps.
 #' @examples
 #' \dontrun{
 #' container_rm(con)

@@ -2,13 +2,15 @@ Package: harbor
 Title: Control docker containers from R
 Version: 0.0.1
 Authors@R: "Winston Chang <winston@stdout.org> [aut, cre]"
-Description: Control docker containers from R
+Description: Control docker containers from R, for local of cloud based instances.
 Depends:
     R (>= 3.0)
 Imports:
-    jsonlite (>= 0.9.12)
+    jsonlite (>= 0.9.12),
+    analogsea (>= 0.4.0),
+    googleComputeEngineR
 License: GPL-2
 LazyData: true
-Suggests:
-    analogsea
-Remotes: cloudyr/googleComputeEngineR
+Remotes:
+    cloudyr/googleComputeEngineR
+RoxygenNote: 5.0.1

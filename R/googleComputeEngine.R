@@ -1,4 +1,5 @@
 #' @export
+#' @importFrom googleComputeEngineR gce_ssh
 docker_cmd.gce_instance <- function(host, cmd = NULL, args = NULL,
                                     docker_opts = NULL, capture_text = FALSE, ...) {
   cmd_string <- paste(c("docker", cmd, docker_opts, args), collapse = " ")
