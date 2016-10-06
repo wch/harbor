@@ -1,5 +1,7 @@
-# If we're on Mac and Windows, we're using boot2docker, and we need to run the
-# equivalent of `$(boot2docker shellinit)`.
+#' If we're on Mac and Windows, we're using boot2docker, and we need to run the
+#' equivalent of `$(boot2docker shellinit)`.
+#' @importFrom stats setNames
+#' @keywords internal
 boot2docker_shellinit <- function() {
   if (!(Sys.info()["sysname"] %in% c("Darwin", "Windows")))
     return()
@@ -15,7 +17,7 @@ boot2docker_shellinit <- function() {
   if (length(envvars) != 0) {
     envvars <- sub("^ +export +", "", envvars)
     envvars <- strsplit(envvars, "=")
-    envvars <- setNames(pluck(envvars, 2), pluck(envvars, 1))
+    envvars <- stats::setNames(pluck(envvars, 2), pluck(envvars, 1))
     do.call(Sys.setenv, envvars)
   }
 }

@@ -10,6 +10,8 @@
 #'   This is useful for chaining functions. If \code{TRUE}, capture the text
 #'   output from both stdout and stderr, and return that. Note that \code{TRUE}
 #'   may not be available on all types of hosts.
+#' @param ... Other arguments passed to the SSH command for the host
+#'
 #' @examples
 #' \dontrun{
 #' docker_cmd(localhost, "ps", "-a")
@@ -23,6 +25,8 @@ docker_cmd <- function(host, cmd = NULL, args = NULL, docker_opts = NULL,
 
 #' Pull a docker image onto a host.
 #'
+#' @inheritParams docker_cmd
+#' @param image The docker image to pull e.g. \code{rocker/rstudio}
 #' @examples
 #' \dontrun{
 #' docker_pull(localhost, "debian:testing")
@@ -37,6 +41,7 @@ docker_pull <- function(host = localhost, image, ...) {
 
 #' Run a command in a new container on a host.
 #'
+#' @inheritParams docker_cmd
 #' @param host An object representing the host where the container will be run.
 #' @param image The name or ID of a docker image.
 #' @param cmd A command to run in the container.
@@ -92,6 +97,8 @@ docker_run <- function(host = localhost, image = NULL, cmd = NULL,
 
 #' Inspect one or more containers, given name(s) or ID(s).
 #'
+#' @inheritParams docker_cmd
+#' @param names Names of the containers
 #' @return A list of lists, where each sublist represents one container. This is
 #'   the output of `docker inspect` translated directly from raw JSON to an R
 #'   object.

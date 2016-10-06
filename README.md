@@ -8,7 +8,7 @@ It presently works with:
 
 * The local computer that R is running on (`localhost`)
 * Remote virtual machines running on Digital Ocean, with the [analogsea](https://github.com/sckott/analogsea) package.
-
+* Remote virtual machines running on Google Compute Engine, with the [googleComputeEngineR](https://github.com/cloudyr/googleComputeEngineR) package.
 
 ## Installation
 
@@ -17,6 +17,9 @@ devtools::install_github("wch/harbor")
 
 # Optional
 devtools::install_github("sckott/analogsea")
+
+# Optional
+devtools::install_github("cloudyr/googleComputeEngineR")
 ```
 
 
@@ -54,6 +57,8 @@ The same commands can be used with docker images on a remote host, using the ana
 
 Note: you may need to configure ssh host keys on Digital Ocean for the following to work.
 
+## DigitalOcean
+
 ```R
 library(analogsea)
 
@@ -83,4 +88,74 @@ con
 
 # Destroy the virtual machine from Digital Ocean
 droplet_delete(dhost)
+```
+
+## Google Compute Engine
+
+```R
+library(googleComputeEngineR)
+library(harbor)
+
+# Create a virtual machine on Google Compute Engine
+job <-   gce_vm_create("demo", 
+                       image_project = "google-containers",
+                       image_family = "gci-stable",
+                       predefined_type = "f1-micro")
+
+## wait for the operation to complete
+gce_check_zone_op(job)
+
+## get the instance
+ghost <- gce_get_instance("demo")
+ghost
+#> ==Google Compute Engine Instance==
+#> 
+#> Name:                demo
+#> Created:             2016-10-06 04:41:56
+#> Machine Type:        f1-micro
+#> Status:              RUNNING
+#> Zone:                europe-west1-b
+#> External IP:         104.155.0.147
+#> Disks: 
+#>       deviceName       type       mode boot autoDelete
+#> 1 demo-boot-disk PERSISTENT READ_WRITE TRUE       TRUE
+
+
+# Create and run a container in the virtual machine.
+# 'user' is the one you used to create the SSH keys
+
+# This might take a while.
+con <- docker_run(ghost, "debian", "echo foo", user = "mark")
+#> Warning: Permanently added '104.155.0.147' (RSA) to the list of known hosts.
+#> Unable to find image 'debian:latest' locally
+#> latest: Pulling from library/debian
+#> 6a5a5368e0c2: Pulling fs layer
+#> 6a5a5368e0c2: Verifying Checksum
+#> 6a5a5368e0c2: Download complete
+#> 6a5a5368e0c2: Pull complete
+#> Digest: sha256:677f184a5969847c0ad91d30cf1f0b925cd321e6c66e3ed5fbf9858f58425d1a
+#> Status: Downloaded newer image for debian:latest
+#> foo
+
+con
+#> <container>
+#>   ID:       92f96d32d081 
+#>   Name:     harbor_6rdevp 
+#>   Image:    debian 
+#>   Command:  echo foo 
+#>   Host:     ==Google Compute Engine Instance==
+#>   
+#>   Name:                demo
+#>   Created:             2016-10-06 04:41:56
+#>   Machine Type:        f1-micro
+#>   Status:              RUNNING
+#>   Zone:                europe-west1-b
+#>  External IP:         104.155.0.147
+#>   Disks: 
+#>         deviceName       type       mode boot autoDelete
+#>   1 demo-boot-disk PERSISTENT READ_WRITE TRUE       TRUE
+  
+  
+# Destroy the virtual machine from Google Compute Engine
+gce_vm_delete(ghost)
 ```
