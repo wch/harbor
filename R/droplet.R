@@ -1,3 +1,13 @@
+#' Integrate with Docker endpoints on Digital Ocean
+#'
+#' @md
+#' @param host reachable hostname
+#' @param cmd docker command
+#' @param args args to docker command
+#' @param docker_opts options passed to tocker
+#' @param capture_text should we capture output text? default: `FALSE`
+#' @param ... additional options passed to [analogsea::droplet_ssh] and
+#'            [analogsea::droplet_download]s
 #' @export
 docker_cmd.droplet <- function(host, cmd = NULL, args = NULL,
                                docker_opts = NULL, capture_text = FALSE, ...) {

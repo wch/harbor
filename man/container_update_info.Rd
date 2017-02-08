@@ -20,4 +20,3 @@ information, you need to save the result.
 con <- container_update_info(con)
 }
 }
-

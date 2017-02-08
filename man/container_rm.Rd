@@ -19,4 +19,3 @@ Delete a container.
 container_rm(con)
 }
 }
-

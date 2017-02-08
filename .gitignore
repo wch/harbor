@@ -3,3 +3,4 @@
 .RData
 *.sublime-*
 .httr-oauth
+.DS_Store

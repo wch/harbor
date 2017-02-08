@@ -1,3 +1,5 @@
+is_blank <- function(x) { x == "" }
+
 # Return a string of random letters and numbers, with an optional prefix.
 random_name <- function(prefix = NULL, length = 6) {
   chars <- c(letters, 0:9)

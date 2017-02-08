@@ -17,4 +17,3 @@ Report whether a container is currently running.
 container_running(con)
 }
 }
-

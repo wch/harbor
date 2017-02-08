@@ -4,7 +4,7 @@
 \alias{docker_inspect}
 \title{Inspect one or more containers, given name(s) or ID(s).}
 \usage{
-docker_inspect(host = localhost, names = NULL, ...)
+docker_inspect(host = harbor::localhost, names = NULL, ...)
 }
 \arguments{
 \item{host}{A host object.}
@@ -27,4 +27,3 @@ docker_run(localhost, "debian:testing", "echo foo", name = "harbor-test")
 docker_inspect(localhost, "harbor-test")
 }
 }
-

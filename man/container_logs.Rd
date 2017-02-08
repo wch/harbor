@@ -4,21 +4,18 @@
 \alias{container_logs}
 \title{Retrieve logs for a container.}
 \usage{
-container_logs(container, timestamps = FALSE, follow = FALSE)
+container_logs(container, timestamps = FALSE)
 }
 \arguments{
 \item{container}{A container object}
 
 \item{timestamps}{Show timestamps.}
-
-\item{follow}{Follow log output as it is happening.}
 }
 \description{
 Retrieve logs for a container.
 }
 \examples{
 \dontrun{
-container_rm(con)
+container_logs(con)
 }
 }
-

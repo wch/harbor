@@ -4,7 +4,7 @@
 \alias{docker_pull}
 \title{Pull a docker image onto a host.}
 \usage{
-docker_pull(host = localhost, image, ...)
+docker_pull(host = harbor::localhost, image, ...)
 }
 \arguments{
 \item{host}{A host object.}
@@ -24,4 +24,3 @@ Pull a docker image onto a host.
 docker_pull(localhost, "debian:testing")
 }
 }
-

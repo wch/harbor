@@ -48,4 +48,3 @@ docker_run(localhost, "rocker/r-base", c("Rscript", "-e", "1+1"))
 #> [1] 2
 }
 }
-

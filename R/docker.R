@@ -17,8 +17,8 @@
 #' docker_cmd(localhost, "ps", "-a")
 #' }
 #' @export
-docker_cmd <- function(host, cmd = NULL, args = NULL, docker_opts = NULL,
-                       capture_text = FALSE, ...) {
+docker_cmd <- function(host = harbor::localhost, cmd = NULL, args = NULL,
+                       docker_opts = NULL, capture_text = FALSE, ...) {
   UseMethod("docker_cmd")
 }
 
@@ -33,7 +33,7 @@ docker_cmd <- function(host, cmd = NULL, args = NULL, docker_opts = NULL,
 #' }
 #' @return The \code{host} object.
 #' @export
-docker_pull <- function(host = localhost, image, ...) {
+docker_pull <- function(host = harbor::localhost, image, ...) {
   if (is.null(image)) stop("Must specify an image.")
   docker_cmd(host, "pull", image, ...)
 }
@@ -76,10 +76,11 @@ docker_run <- function(host = localhost, image = NULL, cmd = NULL,
 
   # Generate names here, instead of having docker do it automatically, so that
   # we can refer to this container later.
+
   if (is.null(name)) name <- random_name(prefix = "harbor")
 
   args <- c(
-    sprintf('--name="%s"', name),
+    sprintf('--name=%s', name),
     if (rm) "--rm",
     if (detach) "-d",
     docker_opts,
@@ -92,6 +93,7 @@ docker_run <- function(host = localhost, image = NULL, cmd = NULL,
 
   info <- docker_inspect(host, name, ...)[[1]]
   invisible(as.container(info, host))
+
 }
 
 
@@ -109,11 +111,13 @@ docker_run <- function(host = localhost, image = NULL, cmd = NULL,
 #' docker_inspect(localhost, "harbor-test")
 #' }
 #' @export
-docker_inspect <- function(host = localhost, names = NULL, ...) {
+docker_inspect <- function(host = harbor::localhost, names = NULL, ...) {
+
   if (is.null(names))
     stop("Must have at one least container name/id to inspect.")
 
   text <- docker_cmd(host, "inspect", args = names, capture_text = TRUE, ...)
 
   jsonlite::fromJSON(text, simplifyDataFrame = FALSE, simplifyMatrix = FALSE)
+
 }

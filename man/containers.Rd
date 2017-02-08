@@ -4,7 +4,7 @@
 \alias{containers}
 \title{Get list of all containers on a host.}
 \usage{
-containers(host = localhost, ...)
+containers(host = harbor::localhost, ...)
 }
 \arguments{
 \item{host}{A host object.}
@@ -14,4 +14,3 @@ containers(host = localhost, ...)
 \description{
 Get list of all containers on a host.
 }
-

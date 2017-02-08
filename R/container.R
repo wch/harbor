@@ -1,20 +1,22 @@
 #' Coerce an object into a container object.
 #'
+#' A container object represents a Docker container on a host.
+
 #' @param x An object to coerce
 #' @param host A docker host
-#'
-#' A container object represents a Docker container on a host.
 #' @export
-as.container <- function(x, host = localhost) UseMethod("as.container")
+as.container <- function(x, host = harbor::localhost) UseMethod("as.container")
 
+#' @rdname as.container
 #' @export
-as.container.character <- function(x, host = localhost) {
+as.container.character <- function(x, host = harbor::localhost) {
   info <- docker_inspect(host, x)[[1]]
   as.container(info, host)
 }
 
+#' @rdname as.container
 #' @export
-as.container.list <- function(x, host = localhost) {
+as.container.list <- function(x, host = harbor::localhost) {
   # x should be the output of docker_inspect()
   if (is.null(x$Name) || is.null(x$Id))
     stop("`x` must be information about a single container.")
@@ -32,17 +34,22 @@ as.container.list <- function(x, host = localhost) {
   )
 }
 
+#' @rdname as.container
 #' @export
-as.container.container <- function(x, host = localhost) {
+as.container.container <- function(x, host = harbor::localhost) {
   x
 }
 
+#' Custom print method
+#'
+#' @param x A container object
+#' @param ... unused
 #' @export
 #' @importFrom utils capture.output
 print.container <- function(x, ...) {
   cat("<container>")
   cat(
-    "\n  ID:      ", x$id,
+    "\n  Id:      ", x$id,
     "\n  Name:    ", x$name,
     "\n  Image:   ", x$image,
     "\n  Command: ", x$cmd,
@@ -76,7 +83,6 @@ container_update_info <- function(container) {
 #' Report whether a container is currently running.
 #'
 #' @inheritParams container_update_info
-#'
 #' @examples
 #' \dontrun{
 #' container_running(con)
@@ -106,14 +112,15 @@ container_rm <- function(container, force = FALSE) {
 #' Retrieve logs for a container.
 #'
 #' @inheritParams container_update_info
-#' @param follow Follow log output as it is happening.
 #' @param timestamps Show timestamps.
 #' @examples
 #' \dontrun{
-#' container_rm(con)
+#' container_logs(con)
 #' }
 #' @export
-container_logs <- function(container, timestamps = FALSE, follow = FALSE) {
-  args <- c(if (timestamps) "-t", if (follow) "-f", container$id)
-  docker_cmd(container$host, "logs", args)
+container_logs <- function(container, timestamps = FALSE) { #, follow = FALSE) {
+  args <- c(if (timestamps) "-t", container$id)
+  docker_cmd(container$host, "logs", args, capture_text=TRUE, text_from="stderr")
 }
+
+# @param follow Follow log output as it is happening.

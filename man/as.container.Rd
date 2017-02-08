@@ -2,18 +2,24 @@
 % Please edit documentation in R/container.R
 \name{as.container}
 \alias{as.container}
+\alias{as.container.character}
+\alias{as.container.list}
+\alias{as.container.container}
 \title{Coerce an object into a container object.}
 \usage{
-as.container(x, host = localhost)
+as.container(x, host = harbor::localhost)
+
+\method{as.container}{character}(x, host = harbor::localhost)
+
+\method{as.container}{list}(x, host = harbor::localhost)
+
+\method{as.container}{container}(x, host = harbor::localhost)
 }
 \arguments{
 \item{x}{An object to coerce}
 
-\item{host}{A docker host
-
-A container object represents a Docker container on a host.}
+\item{host}{A docker host}
 }
 \description{
-Coerce an object into a container object.
+A container object represents a Docker container on a host.
 }
-

@@ -1,26 +1,51 @@
 #' An object representing the current computer that R is running on.
+#'
 #' @export
 localhost <- structure(list(), class = c("localhost", "host"))
 
+#' @rdname localhost
+#' @param x object
+#' @param ... unused
 #' @export
 print.localhost <- function(x, ...) {
   cat("<localhost>")
 }
 
 
+#' @rdname docker_cmd
 #' @export
 docker_cmd.localhost <- function(host, cmd = NULL, args = NULL,
-                                 docker_opts = NULL, capture_text = FALSE, ...) {
+                                 docker_opts = NULL, capture_text = FALSE,
+                                 text_from = "stdout", ...) {
+
   docker <- Sys.which("docker")
 
-  textopt <- capture_text
-  # If FALSE, send output to console
-  if (textopt == FALSE) textopt <- ""
+  args <- c(cmd, docker_opts, args)
 
-  res <- system2(docker, args = c(cmd, docker_opts, args), stdout = textopt,
-                 stderr = textopt)
+  # purrr::walk(args, message)
+  # message("\n")
 
-  if (capture_text) return(res)
+  res <- sys::exec_internal(docker, args = args, error = TRUE)
+
+  if (capture_text) {
+    if (text_from == "stderr") {
+      return(rawToChar(res$stderr))
+    } else if (text_from == "both") {
+      return(list(stdout=rawToChar(res$stdout), stderr=rawToChar(res$stderr)))
+    } else {
+      return(rawToChar(res$stdout))
+    }
+  } else {
+    if (text_from == "stderr") {
+      message(rawToChar(res$stderr))
+    } else if (text_from == "both") {
+      message(rawToChar(res$stdout))
+      message(rawToChar(res$stderr))
+    } else {
+      message(rawToChar(res$stdout))
+    }
+  }
 
   invisible(host)
+
 }

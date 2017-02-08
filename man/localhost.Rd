@@ -3,13 +3,20 @@
 \docType{data}
 \name{localhost}
 \alias{localhost}
+\alias{print.localhost}
 \title{An object representing the current computer that R is running on.}
 \format{An object of class \code{localhost} (inherits from \code{host}) of length 0.}
 \usage{
 localhost
+
+\\method{print}{localhost}(x, ...)
+}
+\arguments{
+\item{x}{object}
+
+\item{...}{unused}
 }
 \description{
 An object representing the current computer that R is running on.
 }
 \keyword{datasets}
-
