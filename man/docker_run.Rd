@@ -10,7 +10,7 @@ docker_run(host = localhost, image = NULL, cmd = NULL, name = NULL,
 \arguments{
 \item{host}{An object representing the host where the container will be run.}
 
-\item{image}{The name or ID of a docker image.}
+\item{image}{An `image` object or the name or ID of a docker image.}
 
 \item{cmd}{A command to run in the container.}
 

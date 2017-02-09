@@ -1,14 +1,16 @@
 #' Run a docker command on a host.
 #'
-#'
+#' @md
 #' @param host A host object.
 #' @param cmd A docker command, such as "run" or "ps"
-#' @param args Arguments to pass to the docker command
+#' @param args Arguments to pass to the docker command. These are passed in
+#'   the same way they would need to be passed in to `sys::exec_` calls.
+#'   i.e. "`-q -a -s`" would be `c("-q", "-a", "-s")`.
 #' @param docker_opts Options to docker. These are things that come before the
 #'   docker command, when run on the command line.
-#' @param capture_text If \code{FALSE} (the default), return the host object.
-#'   This is useful for chaining functions. If \code{TRUE}, capture the text
-#'   output from both stdout and stderr, and return that. Note that \code{TRUE}
+#' @param capture_text If `FALSE` (the default), return the host object.
+#'   This is useful for chaining functions. If `TRUE``, capture the text
+#'   output from both stdout and stderr, and return that. Note that `TRUE``
 #'   may not be available on all types of hosts.
 #' @param ... Other arguments passed to the SSH command for the host
 #'
@@ -43,7 +45,7 @@ docker_pull <- function(host = harbor::localhost, image, ...) {
 #'
 #' @inheritParams docker_cmd
 #' @param host An object representing the host where the container will be run.
-#' @param image The name or ID of a docker image.
+#' @param image An `image` object or the name or ID of a docker image.
 #' @param cmd A command to run in the container.
 #' @param name A name for the container. If none is provided, a random name will
 #'   be used.
@@ -73,6 +75,8 @@ docker_run <- function(host = localhost, image = NULL, cmd = NULL,
                        docker_opts = NULL, ...) {
 
   if (is.null(image)) stop("Must specify an image.")
+
+  if (inherits(image, "image")) image <- substr(image$Id, 8, 8+11)
 
   # Generate names here, instead of having docker do it automatically, so that
   # we can refer to this container later.

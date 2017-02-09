@@ -4,9 +4,9 @@
 \name{harbor}
 \alias{harbor}
 \alias{harbor-package}
-\title{Tools to Manage 'docker' Containers}
+\title{Tools to Manage 'Docker' Containers & Images}
 \description{
-Tools to Manage 'docker' Containers
+Tools to Manage 'Docker' Containers & Images
 }
 \examples{
 \dontrun{

@@ -1,8 +1,9 @@
 Package: harbor
-Title: Tools to Manage 'Docker' Containers
+Title: Tools to Manage 'Docker' Images and Containers
 Version: 0.2.0
 Authors@R: "Winston Chang <winston@stdout.org> [aut, cre]"
-Description: Control 'Docker' <https://www.docker.com/> containers from R.
+Maintainer: Bob Rudis <bob@rud.is>
+Description: Control 'Docker' <https://www.docker.com/> images and containers from R.
 Depends:
     R (>= 3.2)
 Imports:

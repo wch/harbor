@@ -118,9 +118,22 @@ container_rm <- function(container, force = FALSE) {
 #' container_logs(con)
 #' }
 #' @export
-container_logs <- function(container, timestamps = FALSE) { #, follow = FALSE) {
+container_logs <- function(container, timestamps = FALSE) {
   args <- c(if (timestamps) "-t", container$id)
   docker_cmd(container$host, "logs", args, capture_text=TRUE, text_from="stderr")
 }
 
-# @param follow Follow log output as it is happening.
+#' Stop a running container
+#'
+#' @inheritParams container_update_info
+#' @param seconds Seconds to wait for stop before killing container
+#' @examples
+#' \dontrun{
+#' container_stop(con)
+#' }
+#' @export
+container_stop <- function(container, seconds = 10) {
+  docker_cmd(container$host,
+             c("stop", container$id, sprintf("--time=%s",seconds)),
+             capture_text=TRUE, text_from="both")
+}
