@@ -1,0 +1,21 @@
+---
+title: "harbor"
+output: github_document
+---
+[![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/harbor.svg?branch=master)](https://travis-ci.org/hrbrmstr/harbor)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Tools to Manage 'Docker' Images and Containers
+
+```{r}
+library(harbor)
+
+docker_pull(image="hello-world")
+
+res <- docker_run(image = "hello-world", capture_text = TRUE)
+
+cat(attr(res, "output"))
+```

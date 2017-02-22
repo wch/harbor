@@ -15,6 +15,11 @@ as.image(x, host = harbor::localhost)
 
 \method{as.image}{image}(x, host = harbor::localhost)
 }
+\arguments{
+\item{x}{object to convert}
+
+\item{host}{docker host}
+}
 \description{
 Coerce an object into an image object.
 }

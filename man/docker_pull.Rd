@@ -4,12 +4,20 @@
 \alias{docker_pull}
 \title{Pull a docker image onto a host.}
 \usage{
-docker_pull(host = harbor::localhost, image, ...)
+docker_pull(host = harbor::localhost, image, docker_opts = NULL,
+  capture_text = FALSE, ...)
 }
 \arguments{
 \item{host}{A host object.}
 
 \item{image}{The docker image to pull e.g. \code{rocker/rstudio}}
+
+\item{docker_opts}{Options to docker. These are things that come before the
+docker command, when run on the command line.}
+
+\item{capture_text}{If \code{FALSE} (the default), return the host object.
+This is useful for chaining functions. If \code{TRUE``, capture the text output from both stdout and stderr, and return that. Note that}TRUE``
+may not be available on all types of hosts.}
 
 \item{...}{Other arguments passed to the SSH command for the host}
 }

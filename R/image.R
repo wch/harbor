@@ -1,4 +1,7 @@
 #' Coerce an object into an image object.
+#'
+#' @param x object to convert
+#' @param host docker host
 #' @export
 as.image <- function(x, host = harbor::localhost) UseMethod("as.image")
 
@@ -31,6 +34,7 @@ as.image.image <- function(x, host = harbor::localhost) {
 #'
 #' @param x An image object
 #' @param ... unused
+#' @importFrom scales comma
 #' @export
 print.image <- function(x, ...) {
   cat("<image>")

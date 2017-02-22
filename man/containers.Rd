@@ -2,14 +2,21 @@
 % Please edit documentation in R/containers.R
 \name{containers}
 \alias{containers}
+\alias{as.data.frame.dckr_cntrs}
 \title{Get list of all containers on a host.}
 \usage{
 containers(host = harbor::localhost, ...)
+
+\method{as.data.frame}{dckr_cntrs}(x, ..., stringsAsFactors = FALSE)
 }
 \arguments{
 \item{host}{A host object.}
 
-\item{...}{Other arguments passed to the SSH command for the host}
+\item{...}{not used}
+
+\item{x}{containers object}
+
+\item{stringsAsFactors}{set to \code{FALSE}}
 }
 \description{
 Get list of all containers on a host.

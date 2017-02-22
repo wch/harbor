@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 ^.*\.sublime-[^.]+$
 ^\.httr-oauth$
+^\.travis\.yml$
+^zz_orig_README\.md$
+^README\.Rmd$

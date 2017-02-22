@@ -13,6 +13,7 @@ print.localhost <- function(x, ...) {
 
 
 #' @rdname docker_cmd
+#' @param text_from where to capture text from
 #' @export
 docker_cmd.localhost <- function(host, cmd = NULL, args = NULL,
                                  docker_opts = NULL, capture_text = FALSE,

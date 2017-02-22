@@ -5,7 +5,8 @@
 \title{Run a command in a new container on a host.}
 \usage{
 docker_run(host = localhost, image = NULL, cmd = NULL, name = NULL,
-  rm = FALSE, detach = FALSE, docker_opts = NULL, ...)
+  rm = FALSE, detach = FALSE, docker_opts = NULL, capture_text = FALSE,
+  ...)
 }
 \arguments{
 \item{host}{An object representing the host where the container will be run.}
@@ -24,6 +25,10 @@ incompatible with \code{detach=TRUE}.}
 
 \item{docker_opts}{Options to docker. These are things that come before the
 docker command, when run on the command line.}
+
+\item{capture_text}{If \code{FALSE} (the default), return the host object.
+This is useful for chaining functions. If \code{TRUE``, capture the text output from both stdout and stderr, and return that. Note that}TRUE``
+may not be available on all types of hosts.}
 
 \item{...}{Other arguments passed to the SSH command for the host}
 }

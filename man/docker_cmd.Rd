@@ -32,6 +32,8 @@ This is useful for chaining functions. If \code{TRUE``, capture the text output 
 may not be available on all types of hosts.}
 
 \item{...}{Other arguments passed to the SSH command for the host}
+
+\item{text_from}{where to capture text from}
 }
 \description{
 Run a docker command on a host.

@@ -35,9 +35,15 @@ docker_cmd <- function(host = harbor::localhost, cmd = NULL, args = NULL,
 #' }
 #' @return The \code{host} object.
 #' @export
-docker_pull <- function(host = harbor::localhost, image, ...) {
+docker_pull <- function(host = harbor::localhost, image,
+                        docker_opts = NULL, capture_text = FALSE, ...) {
+
   if (is.null(image)) stop("Must specify an image.")
-  docker_cmd(host, "pull", image, ...)
+
+  docker_cmd(host=host, cmd="pull", args=image,
+             docker_opts=docker_opts,
+             capture_text=capture_text, ...)
+
 }
 
 
@@ -72,7 +78,7 @@ docker_pull <- function(host = harbor::localhost, image, ...) {
 #' @export
 docker_run <- function(host = localhost, image = NULL, cmd = NULL,
                        name = NULL, rm = FALSE, detach = FALSE,
-                       docker_opts = NULL, ...) {
+                       docker_opts = NULL, capture_text = FALSE, ...) {
 
   if (is.null(image)) stop("Must specify an image.")
 
@@ -92,11 +98,16 @@ docker_run <- function(host = localhost, image = NULL, cmd = NULL,
     cmd
   )
 
-  docker_cmd(host, "run", args = args, ...)
+  tmp <- docker_cmd(host, "run", args = args, capture_text = capture_text, ...)
   if (rm) return(invisible())
 
   info <- docker_inspect(host, name, ...)[[1]]
-  invisible(as.container(info, host))
+
+  x <- as.container(info, host)
+
+  if (capture_text) attr(x, "output") <- tmp
+
+  invisible(x)
 
 }
 
