@@ -1,0 +1,23 @@
+language: r
+
+warnings_are_errors: true
+
+cache: packages
+
+sudo: required
+
+services:
+  - docker
+
+r:
+ - oldrel
+ - release
+ - devel
+
+notifications:
+  email:
+    - bob@rud.is
+  irc:
+    channels:
+      - "104.236.112.222#builds"
+    nick: travisci
