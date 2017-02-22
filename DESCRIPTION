@@ -8,7 +8,8 @@ Depends:
     R (>= 3.2)
 Imports:
     jsonlite (>= 0.9.12),
-    sys
+    sys,
+    scales
 License: GPL-2
 LazyData: true
 RoxygenNote: 6.0.0

@@ -1,6 +1,6 @@
 #' Get Docker version info
 #'
-#' @param docker host
+#' @param host docker host
 #' @export
 version <- function(host=harbor::localhost) {
 
@@ -13,7 +13,7 @@ version <- function(host=harbor::localhost) {
 
   out <- jsonlite::fromJSON(vers_info, simplifyVector=FALSE, simplifyDataFrame=FALSE)
 
-  class(out) <- c("dversion", "list")
+  class(out) <- c("dckr_version")
 
   invisible(out)
 
@@ -23,6 +23,6 @@ version <- function(host=harbor::localhost) {
 #' @param x object
 #' @param ... unused
 #' @export
-print.dversion <- function(x, ...) {
+print.dckr_version <- function(x, ...) {
   cat(sprintf("Docker:\n  - Client: %s\n  - Server: %s\n", x$Client$Version, x$Server$Version))
 }

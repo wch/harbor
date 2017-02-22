@@ -2,19 +2,19 @@
 % Please edit documentation in R/version.r
 \name{version}
 \alias{version}
-\alias{print.dversion}
+\alias{print.dckr_version}
 \title{Get Docker version info}
 \usage{
 version(host = harbor::localhost)
 
-\method{print}{dversion}(x, ...)
+\method{print}{dckr_version}(x, ...)
 }
 \arguments{
+\item{host}{docker host}
+
 \item{x}{object}
 
 \item{...}{unused}
-
-\item{docker}{host}
 }
 \description{
 Get Docker version info

@@ -20,6 +20,9 @@ images <- function(host = harbor::localhost, ...) {
 }
 
 #' @rdname images
+#' @param x images object
+#' @param ... not used
+#' @param stringsAsFactors set to `FALSE`
 #' @export
 as.data.frame.dckr_imgs <- function(x, ..., stringsAsFactors=FALSE) {
 

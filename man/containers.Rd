@@ -12,7 +12,11 @@ containers(host = harbor::localhost, ...)
 \arguments{
 \item{host}{A host object.}
 
-\item{...}{Other arguments passed to the SSH command for the host}
+\item{...}{not used}
+
+\item{x}{containers object}
+
+\item{stringsAsFactors}{set to \code{FALSE}}
 }
 \description{
 Get list of all containers on a host.

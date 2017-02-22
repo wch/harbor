@@ -12,7 +12,11 @@ images(host = harbor::localhost, ...)
 \arguments{
 \item{host}{A host object.}
 
-\item{...}{Other arguments passed to the SSH command for the host}
+\item{...}{not used}
+
+\item{x}{images object}
+
+\item{stringsAsFactors}{set to `FALSE`}
 }
 \description{
 Get list of all images on a host

@@ -23,7 +23,11 @@ containers <- function(host = harbor::localhost, ...) {
 
 }
 
+#' @md
 #' @rdname containers
+#' @param x containers object
+#' @param ... not used
+#' @param stringsAsFactors set to `FALSE`
 #' @export
 as.data.frame.dckr_cntrs <- function(x, ..., stringsAsFactors=FALSE) {
 
