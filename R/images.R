@@ -30,7 +30,7 @@ as.data.frame.dckr_imgs <- function(x, ..., stringsAsFactors=FALSE) {
 
   do.call(rbind.data.frame, lapply(x, function(y){
     data.frame(
-      repo=y$RepoTags[1],
+      repo=ifelse(length(y$RepoTags) == 0, "", y$RepoTags[1]),
       arch=y$Architecture,
       os=y$Os,
       author=y$Author,
